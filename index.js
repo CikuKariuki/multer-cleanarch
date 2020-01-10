@@ -6,6 +6,15 @@ const MongoClient = require('mongodb').MongoClient;
 const multer = require('multer');
 dotenv.config()
 const app = express()
+
+//setting restrictions for types f files that can be uploaded
+const fileFilter = (req, file,cb)=>{
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/gif'){
+        cb(null, true);
+    }else{
+    cb(null, false);
+}
+} 
 //detailed way of storing the uploaded files
 const storage= multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -20,9 +29,12 @@ const storage= multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits:{
-        fileSize: 1024*1024*5
-    }
+        fileSize: 1024 * 1024 *5
+    },
+    fileFilter: fileFilter
 });
+
+
 
 app.post('/instagramnode',upload.single('picture'), async(req,res)=>{
     console.log(req.file)
