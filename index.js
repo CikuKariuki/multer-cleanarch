@@ -34,7 +34,7 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-
+app.use('/uploads',express.static('uploads'));
 
 app.post('/instagramnode',upload.single('picture'), async(req,res)=>{
     console.log(req.file)
