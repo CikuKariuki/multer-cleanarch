@@ -4,10 +4,25 @@ const express = require('express');
 const dotenv = require('dotenv');
 const MongoClient = require('mongodb').MongoClient;
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'})
 dotenv.config()
 const app = express()
-
+//detailed way of storing the uploaded files
+const storage= multer.diskStorage({
+    destination: (req, file, cb)=>{
+        //choosing where the files will be stored
+        cb(null, './uploads');
+    },
+    filename: (req,file,cb)=>{
+        //choosing how the files shall be named.
+        cb(null, new Date().toISOString()+ file.originalname)
+    }
+})
+const upload = multer({
+    storage: storage,
+    limits:{
+        fileSize: 1024*1024*5
+    }
+});
 
 app.post('/instagramnode',upload.single('picture'), async(req,res)=>{
     console.log(req.file)
