@@ -9,12 +9,14 @@ dotenv.config()
 const app = express()
 
 
-app.post('/instagramnode', async(req,res)=>{
+app.post('/instagramnode',upload.single('picture'), async(req,res)=>{
+    console.log(req.file)
     var request = req.body
     //display here ya cursor to find all pictures.
     
     //returning on the server the result
     res.send(request)
+    console.log(request)
 
 })
 

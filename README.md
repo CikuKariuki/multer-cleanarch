@@ -9,3 +9,9 @@ Name
 Picture
 Caption
 Date*
+
+uploaded an image meaning server works well,
+I need to:
+>> create a new file to display the data online,
+>> create a new file to save the data in a db
+>>
