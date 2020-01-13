@@ -1,10 +1,9 @@
 //I think since this file is dependent on so much it should be in the detail/outermost level.
 
 const express = require('express');
-const dotenv = require('dotenv');
-const MongoClient = require('mongodb').MongoClient;
 const multer = require('multer');
-dotenv.config()
+const display = require('./data-access/browser-display')
+
 const app = express()
 
 //setting restrictions for types f files that can be uploaded
@@ -33,6 +32,12 @@ const upload = multer({
     },
     fileFilter: fileFilter
 });
+
+app.route('/instagramnode').get((req,res)=>{
+    const picture = display()
+    res.send(picture)
+    
+})
 
 app.use('/uploads',express.static('uploads'));
 
